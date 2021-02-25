@@ -1,8 +1,11 @@
 package org.vital.bootproject.model;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.sql.Date;
 
+@Data
 @Entity
 @Table(name = "orders")
 public class Order {
@@ -12,9 +15,19 @@ public class Order {
     @Column(name = "id")
     private int id;
 
+
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
+
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     @Column(name = "amount")
     private int amount;
@@ -31,62 +44,6 @@ public class Order {
 
     public Order() {}
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    /*@Override
-    public String toString() {
-        return "Order{" +
-                "id=" + id +
-                ", user=" + user +
-                ", amount=" + amount +
-                ", date=" + date +
-                ", status=" + orderStatus +
-                ", description='" + description + '\'' +
-                '}';
-    }*/
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public int getAmount() {
-        return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public OrderStatus getOrderStatus() {
-        return orderStatus;
-    }
-
     /*public void setOrderStatus(String status) {
         for (OrderStatus orderStatus : OrderStatus.values()) {
             if (orderStatus.getStatus().equalsIgnoreCase(status)) {
@@ -96,7 +53,4 @@ public class Order {
         }
     }*/
 
-    public void setOrderStatus(OrderStatus orderStatus) {
-        this.orderStatus = orderStatus;
-    }
 }

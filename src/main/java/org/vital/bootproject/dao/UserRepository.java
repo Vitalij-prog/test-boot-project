@@ -7,6 +7,7 @@ import org.vital.bootproject.model.User;
 
 import java.util.Optional;
 
-@Repository("mysql_db")
+@Repository("users_db")
 public interface UserRepository extends CrudRepository<User, Integer> {
+
 }

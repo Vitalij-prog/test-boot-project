@@ -1,6 +1,8 @@
 package org.vital.bootproject.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name = "users")
 public class User {
@@ -16,6 +18,30 @@ public class User {
 
     @Column(name = "user_mail")
     private String mail;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Order> orders;
+
+    public User() {
+
+    }
+
+    public void addOrder(Order order) {
+        if(orders == null) {
+            orders = new ArrayList<>();
+        }
+
+        orders.add(order);
+        order.setUser(this);
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
 
     public int getId() {
         return id;
@@ -48,4 +74,15 @@ public class User {
     public void setMail(String mail) {
         this.mail = mail;
     }
+
+    /*@Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", mail='" + mail + '\'' +
+                ", orders=" + orders +
+                '}';
+    }*/
 }

@@ -1,12 +1,12 @@
 package org.vital.bootproject.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.sun.istack.internal.NotNull;
+/*import com.sun.istack.internal.NotNull;*/
 
 public class Person {
     private int id;
 
-    @NotNull
+    /*@NotNull*/
     private String name;
 
     public Person(@JsonProperty("id") int id, @JsonProperty("name") String name) {

@@ -1,6 +1,5 @@
 package org.vital.bootproject.api;
 
-import com.sun.istack.internal.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +19,7 @@ public class PersonController {
     }
 
     @PostMapping
-    public void addPerson(@RequestBody @NotNull Person person) {
+    public void addPerson(@RequestBody Person person) {
         service.addPerson(person);
     }
 
@@ -40,7 +39,7 @@ public class PersonController {
     }
 
     @PutMapping(path = "{id}")
-    public void updatePersonById(@PathVariable("id") int id, @NotNull @RequestBody Person person) {
+    public void updatePersonById(@PathVariable("id") int id, @RequestBody Person person) {
         service.updatePersonById(id, person);
     }
 

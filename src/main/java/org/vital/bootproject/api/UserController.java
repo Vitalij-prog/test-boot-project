@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.vital.bootproject.dao.UserRepository;
 import org.vital.bootproject.model.User;
+import org.vital.bootproject.service.UserService;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,20 +15,20 @@ import java.util.Optional;
 @RequestMapping("/user")
 public class UserController {
 
-    private final UserRepository userRepository;
+    private final UserService userService;
 
     @Autowired
-    public UserController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     @GetMapping()
     public List<User> getUserList() {
-        return (List<User>) userRepository.findAll();
+        return userService.findAllUser();
     }
 
     @GetMapping(path = "{id}")
     public Optional<User> getUserById(@PathVariable int id) {
-        return userRepository.findById(id);
+        return userService.findUserById(id);
     }
 }

@@ -29,7 +29,7 @@ public class ChangeOrderAmountAspect {
 
        for(Order order: orderList) {
            if(order.getOrderStatus() == OrderStatus.IN_DELIVERY) {
-               order.setAmount(order.getAmount() + Constants.DELIVERY_COST);
+               order.setAmount(order.getAmount().add(Constants.DELIVERY_COST));
 
            }
            logger.info("order: " + order);

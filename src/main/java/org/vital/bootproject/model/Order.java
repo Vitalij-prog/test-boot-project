@@ -1,11 +1,13 @@
 package org.vital.bootproject.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.sql.Date;
 
-@Data
+/*@Data*/
 @Entity
 @Table(name = "orders")
 public class Order {
@@ -17,20 +19,29 @@ public class Order {
 
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JoinColumn(name = "user_id" /*referencedColumnName = "id"*/)
     private User user;
 
-
+    @JsonBackReference
     public User getUser() {
         return user;
     }
 
+    /*@JsonBackReference*/
     public void setUser(User user) {
         this.user = user;
     }
 
     @Column(name = "amount")
-    private int amount;
+    private BigDecimal amount;
+
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
 
     @Column(name = "order_date")
     private Date date;
@@ -54,4 +65,36 @@ public class Order {
         }
     }*/
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
+    }
 }

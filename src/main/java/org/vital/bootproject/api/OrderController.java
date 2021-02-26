@@ -8,6 +8,7 @@ import org.vital.bootproject.model.Order;
 import org.vital.bootproject.model.OrderStatus;
 import org.vital.bootproject.service.OrderService;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,7 +31,7 @@ public class OrderController {
        /* service.addOrder(order);*/
 
         Order order = new Order();
-        order.setAmount(123);
+        order.setAmount(new BigDecimal(123));
         order.setDate(new java.sql.Date(new java.util.Date().getTime()));
         order.setDescription("smth description");
         order.setOrderStatus(OrderStatus.ACCEPTED);

@@ -2,6 +2,7 @@ package org.vital.bootproject.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import org.vital.bootproject.dao.OrderRepository;
 import org.vital.bootproject.dao.UserRepository;
@@ -45,4 +46,13 @@ public class OrderService  {
 
         return list;
     }
+
+    public Optional<Order> getOrderById(int id) {
+        return orderRepository.findById(id);
+    }
+
+    public List<Order> getOrdersListByUserId(int id) {
+        return orderRepository.getOrdersListByUserId(id);
+    };
+
 }

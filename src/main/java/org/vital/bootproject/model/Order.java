@@ -44,6 +44,7 @@ public class Order {
 
     public Order() {}
 
+
     /*public void setOrderStatus(String status) {
         for (OrderStatus orderStatus : OrderStatus.values()) {
             if (orderStatus.getStatus().equalsIgnoreCase(status)) {

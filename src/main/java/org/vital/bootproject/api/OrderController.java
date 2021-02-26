@@ -5,11 +5,10 @@ import org.springframework.web.bind.annotation.*;
 
 import org.vital.bootproject.model.Order;
 import org.vital.bootproject.model.OrderStatus;
-import org.vital.bootproject.model.User;
 import org.vital.bootproject.service.OrderService;
-import org.vital.bootproject.service.UserService;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/order")
@@ -40,6 +39,17 @@ public class OrderController {
     @GetMapping()
     public List<Order> getAllOrders() {
         return service.getAllOrders();
+    }
+
+    @GetMapping("/user/{id}/orders")
+    public List<Order> getAllOrdersByUserId(@PathVariable int id) {
+        return service.getOrdersListByUserId(id);
+    }
+
+
+    @GetMapping(path = "{id}")
+    public Optional<Order> getOrderById(@PathVariable int id) {
+        return service.getOrderById(id);
     }
 
 }

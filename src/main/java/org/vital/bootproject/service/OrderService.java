@@ -2,6 +2,9 @@ package org.vital.bootproject.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import org.vital.bootproject.dao.OrderRepository;
@@ -58,8 +61,13 @@ public class OrderService  {
         throw new NoSuchElementException("no order with id = " + id);
     }
 
-    public List<Order> getOrdersListByUserId(int id) {
+   /* public List<Order> getOrdersListByUserId(int id) {
         return orderRepository.getOrdersListByUserId(id);
+    };*/
+
+    public List<Order> getOrdersListByUserId(int id) {
+        Pageable pageable = PageRequest.of(0,4, Sort.by("amount").ascending());
+        return orderRepository.getOrdersListByUserId(id, pageable);
     };
 
 }

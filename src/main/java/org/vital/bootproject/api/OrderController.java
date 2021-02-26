@@ -26,7 +26,7 @@ public class OrderController {
     }
 
 
-    @PostMapping()
+    @PostMapping
     public void addOrder(/*@RequestBody Order order*/) {
        /* service.addOrder(order);*/
 
@@ -38,7 +38,7 @@ public class OrderController {
         service.addOrder(order);
     }
 
-    @GetMapping()
+    @GetMapping
     public List<Order> getAllOrders() {
         return service.getAllOrders();
     }

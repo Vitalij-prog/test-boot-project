@@ -66,8 +66,8 @@ public class OrderService  {
     };*/
 
     public List<Order> getOrdersListByUserId(int id) {
-        Pageable pageable = PageRequest.of(0,4, Sort.by("amount").ascending());
+        Pageable pageable = PageRequest.of(0,4, Sort.by("amount"));
         return orderRepository.getOrdersListByUserId(id, pageable);
-    };
+    }
 
 }

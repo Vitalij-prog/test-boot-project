@@ -3,6 +3,7 @@ package org.vital.bootproject.api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import org.vital.bootproject.mapper.OrderResponse;
 import org.vital.bootproject.model.Order;
 import org.vital.bootproject.model.OrderStatus;
 import org.vital.bootproject.service.OrderService;
@@ -48,7 +49,7 @@ public class OrderController {
 
 
     @GetMapping(path = "{id}")
-    public Optional<Order> getOrderById(@PathVariable int id) {
+    public OrderResponse getOrderById(@PathVariable int id) {
         return service.getOrderById(id);
     }
 

@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import org.vital.bootproject.dao.OrderRepository;
 import org.vital.bootproject.dao.UserRepository;
+import org.vital.bootproject.exceptions.OrderNotFoundException;
 import org.vital.bootproject.mapper.OrderListRequest;
 import org.vital.bootproject.mapper.OrderResponse;
 import org.vital.bootproject.mapper.OrderResponseMapper;
@@ -55,12 +56,12 @@ public class OrderService  {
         return list;
     }
 
-    public OrderResponse getOrderById(int id) {
+    public OrderResponse getOrderById(int id) throws OrderNotFoundException {
         Optional<Order> optionalOrder = orderRepository.findById(id);
         if(optionalOrder.isPresent()) {
             return OrderResponseMapper.toOrderResponse(optionalOrder.get());
         }
-        throw new NoSuchElementException("no order with id = " + id);
+        throw new OrderNotFoundException("Order with id = " + id + " not found");
     }
 
 

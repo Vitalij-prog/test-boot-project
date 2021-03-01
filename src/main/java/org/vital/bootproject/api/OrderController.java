@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
+import org.vital.bootproject.exceptions.OrderNotFoundException;
 import org.vital.bootproject.mapper.OrderListRequest;
 import org.vital.bootproject.mapper.OrderResponse;
 import org.vital.bootproject.model.Order;
@@ -54,7 +55,7 @@ public class OrderController {
     }
 
     @GetMapping("{id}")
-    public OrderResponse getOrderById(@PathVariable int id) {
+    public OrderResponse getOrderById(@PathVariable int id) throws OrderNotFoundException {
         return service.getOrderById(id);
     }
 

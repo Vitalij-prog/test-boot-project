@@ -6,11 +6,10 @@ import org.vital.bootproject.model.Order;
 public class OrderResponseMapper {
 
     public static OrderResponse toOrderResponse(Order order) {
-        OrderResponse response = new OrderResponse();
 
-        response.setDate(order.getDate());
-        response.setOrderStatus(order.getOrderStatus());
-
-        return response;
+        return OrderResponse.builder()
+                .date(order.getDate())
+                .orderStatus(order.getOrderStatus())
+                .build();
     }
 }

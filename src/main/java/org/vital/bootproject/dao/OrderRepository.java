@@ -1,11 +1,13 @@
 package org.vital.bootproject.dao;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 import org.vital.bootproject.model.Order;
+import org.vital.bootproject.model.User;
 
 
 import java.util.List;
@@ -17,4 +19,6 @@ public interface OrderRepository extends PagingAndSortingRepository<Order, Integ
 
     @Query("select o from Order o where o.user.id = ?1")
     List<Order> getOrdersListByUserId(int id, Pageable pageable);
+
+    Page<Order> findByUser(User user, Pageable pageable);
 }

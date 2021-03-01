@@ -2,6 +2,7 @@ package org.vital.bootproject.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -9,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import org.vital.bootproject.dao.OrderRepository;
 import org.vital.bootproject.dao.UserRepository;
+import org.vital.bootproject.mapper.OrderListRequest;
 import org.vital.bootproject.mapper.OrderResponse;
 import org.vital.bootproject.mapper.OrderResponseMapper;
 import org.vital.bootproject.model.Order;
@@ -61,13 +63,19 @@ public class OrderService  {
         throw new NoSuchElementException("no order with id = " + id);
     }
 
-   /* public List<Order> getOrdersListByUserId(int id) {
-        return orderRepository.getOrdersListByUserId(id);
-    };*/
 
     public List<Order> getOrdersListByUserId(int id) {
+        User user = new User();
+        user.setId(id);
         Pageable pageable = PageRequest.of(0,4, Sort.by("amount"));
         return orderRepository.getOrdersListByUserId(id, pageable);
+    }
+
+    public Page<Order> getOrdersPage(OrderListRequest request) {
+        User user = new User();
+        user.setId(request.getId());
+        Pageable pageable = PageRequest.of(request.getPage(), request.getSize());
+        return orderRepository.findByUser(user, pageable);
     }
 
 }

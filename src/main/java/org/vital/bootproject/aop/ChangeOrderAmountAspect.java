@@ -5,9 +5,10 @@ import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 
 
-
+import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 import org.vital.bootproject.model.Order;
 import org.vital.bootproject.model.OrderStatus;
@@ -20,20 +21,26 @@ import java.util.List;
 @Aspect
 public class ChangeOrderAmountAspect {
 
-    @AfterReturning(value = "org.vital.bootproject.aop.Pointcuts.getOrdersList()", returning = "orderList")
-    public List<Order> updateOrderAmount(List<Order> orderList) {
+    @Pointcut("execution(java.util.List<org.vital.bootproject.model.Order> org.vital.bootproject.service.OrderService.getOrdersList*(int))")
+    public void getOrdersList(){}
+
+    @Pointcut("execution(org.springframework.data.domain.Page<org.vital.bootproject.model.Order> org.vital.bootproject.service.OrderService.getOrdersPage*(..))")
+    public void getOrdersPage(){
+
+    }
+    @AfterReturning(value = "getOrdersPage()", returning = "ordersPage")
+    public Page<Order> updateOrderAmount(Page<Order> ordersPage) {
 
         Logger logger = LoggerFactory.getLogger("OrderLogger");
 
         logger.info("got orderList");
 
-       for(Order order: orderList) {
+       for(Order order: ordersPage) {
            if(order.getOrderStatus() == OrderStatus.IN_DELIVERY) {
                order.setAmount(order.getAmount().add(Constants.DELIVERY_COST));
-
            }
            logger.info("order: " + order);
        }
-       return orderList;
+       return ordersPage;
     }
 }
